@@ -28,9 +28,7 @@ public class viewFilter implements Filter {
 		
 		String uri = req.getRequestURI();//得到请求地址
 		String file[] = uri.split("/");//通过分隔这样数组的最后一个值，就是页面
-		//你比较下file[file.lenght-1].equals("login.jsp")就可以了。
-//		if(file[file.length-1].equals("login.jsp")){}
-//		System.out.println(!file[file.length-1].contains(".jsp"));
+
 		if(file[file.length-1].contains(".jsp")
 				&&req.getSession(true).getAttribute("username")==null
 				&&!file[file.length-1].equals("index.jsp")){

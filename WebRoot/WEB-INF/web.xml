@@ -87,7 +87,7 @@
 	</filter>
 	<filter-mapping>
 	   <filter-name>view</filter-name>
-	   <url-pattern>/*</url-pattern>           
+	   <url-pattern>*.jsp</url-pattern>           
 	   <dispatcher>REQUEST</dispatcher>
 	   <dispatcher>INCLUDE</dispatcher>
 	   <dispatcher>FORWARD</dispatcher>
