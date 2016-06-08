@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+body {
+    color:#333;
+    font-family: "微软雅黑";
+    font-size:14px;
+    height:100%;
+    margin:0 auto;
+    padding:0;
+    min-width: 1100px;
+}
+html,body,div,dl,dt,dd,ul,ol,li,th,td {
+    margin:0;
+    padding:0;
+}
+img,body,html {
+    border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+    font-style:normal;
+    font-weight:400;
+}
+ol,ul {
+    list-style:none;
+}
+caption,th {
+    text-align:left;
+}
+q:before,q:after {
+    content:'';
+}
+a:focus{outline:none;} 	/*解决IE8<a>点击有边框*/
+a,a:visited {
+    text-decoration:none;
+}
+a:hover,a:active {
+    text-decoration:none;
+}
+.left {
+    float:left;
+}
+.right {
+    float:right;
+}
+.center {
+    margin:0 auto;
+    text-align:center;
+}
+.bring-to-top {
+    position:relative;
+    z-index:500;
+}
+.clear {
+    clear:both;
+}
+.hidden {
+    display:none;
+}
+
+.fit-parent {
+    height:100%;
+    width:100%;
+}
+.inline-block{
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+.placeholder{
+	color: #999;
+}
+.clearfix:after{content:''; display:table; clear:both;}/*(IE8+)*/
+.clearfix{*zoom:1;} /*(IE6/IE7)*/

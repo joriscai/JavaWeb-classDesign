@@ -17,46 +17,35 @@ public class linksql {
 	ResultSet rs1 ;
 	java.sql.PreparedStatement ps = null;
 	public void link(){
-		try{
-			
-			Class.forName("com.mysql.jdbc.Driver");
-			ct = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
-			st = ct.createStatement(); 
-			System.out.println("数据库连接成功！！！");//jdbc:mysql://localhost:3306/test?user=root&password=frank
-			//rs = st.execute("insert into info values('"+title+"')");
-			//System.out.println("数据插入成功！！！");
-			
-		}catch(Exception e){
-			e.printStackTrace();
+		if (st==null) {
+			try{	
+				Class.forName("com.mysql.jdbc.Driver");
+				ct = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?characterEncoding=utf8","root","");
+				st = ct.createStatement(); 
+				System.out.println("数据库连接成功！！！");			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 	}
-			public void close(){
-				if(st!= null){
-					try{
-						st.close();
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-					st=null;
-				}
-				if(ct !=null){
-					try{
-						ct.close();
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-					ct=null;
-				}
-			
-				/*if(rs != null){
-					try{
-						ct.close();
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-					ct=null;
-				}*/
+	public void close(){
+		if(st!= null){
+			try{
+				st.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			st=null;
 		}
+		if(ct !=null){
+			try{
+				ct.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			ct=null;
+		}
+	}
 }
-	
+		
 

@@ -31,7 +31,6 @@ public class edit extends HttpServlet {
 				ls.rs = ls.st.executeUpdate("DELETE FROM bookinfo WHERE NOT id IN (SELECT * FROM (SELECT MAX(id) FROM bookinfo GROUP BY isbn HAVING COUNT(ISBN) >= 1) AS b)");
 				response.sendRedirect("bookmanager.jsp");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -41,7 +40,6 @@ public class edit extends HttpServlet {
 				ls.rs = ls.st.executeUpdate("delete from bookinfo where isbn="+isbn+"");
 				response.sendRedirect("showbook");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

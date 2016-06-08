@@ -24,10 +24,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <h1>图书信息编辑</h1>
-    <%
-    	HttpSession session1 = request.getSession();
-    	out.print(session1.getAttribute("username")+" hello!!");
-     %>
     <form action="edit?action=edit" method='post'>
     <table>
     	<tr><td>ISBN号</td><td><input type='text' name='isbn'/></td></tr>
@@ -37,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<tr><td>出版时间</td><td><input type='text' name='time'/></td></tr>
     	<tr><td>价格</td><td><input type='text' name='price'/></td></tr>
     </table>
-    <input type="submit" value="提交" onclick="javaScript:alert('编辑成功')"/>
+    <input type="submit" value="提交"/>
     </form>
   </body>
 </html>

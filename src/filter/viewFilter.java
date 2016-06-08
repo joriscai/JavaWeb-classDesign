@@ -29,8 +29,7 @@ public class viewFilter implements Filter {
 		String uri = req.getRequestURI();//得到请求地址
 		String file[] = uri.split("/");//通过分隔这样数组的最后一个值，就是页面
 
-		if(file[file.length-1].contains(".jsp")
-				&&req.getSession(true).getAttribute("username")==null
+		if(req.getSession(true).getAttribute("username")==null
 				&&!file[file.length-1].equals("index.jsp")){
 		    res.sendRedirect("index.jsp");
 		    return;
