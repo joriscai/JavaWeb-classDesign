@@ -1,39 +1,72 @@
+<%@page import="des.linksql"%>
+<%@page import="com.mysql.jdbc.*"%>
+<%@page import="java.sql.*"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
   <head>
     <base href="<%=basePath%>">
-    
-    <title>My JSP 'borrow.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+    <title>图书借阅</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<style type="text/css" media="screen">
+        body{
+            padding: 0 20px;
+        }
+        table{
+        	border-top:1px solid #ccc;
+        	border-left:1px solid #ccc;
+        	text-align: center;
+        }
+        tr:nth-child(odd){
+        	background: #eee;
+        }
+        tr:hover{
+        	background: #B5F9EF;
+        }
+        tr:first-child,.tTitle:hover{
+        	background: #ddd;
+        }
+        td{
+            border-bottom: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+        }
+    </style>
 
   </head>
   
   <body>
-    <h1>借阅功能</h1>
-    <%
-    	HttpSession session1 = request.getSession();
-    	out.print(session1.getAttribute("username")+" hello!!");
-     %>
-    <center>
+    <h2>图书借阅</h2>
     	<form action='borrow?action=search' method='post'>
     	<h2>输入所借图书的ISBN号:<input type='text' name='isbn'/><input type='submit' value='查询'/></h2>
     	</form>
-    	<table>
-    	<tr><td>ISBN码</td><td>书名</td><td>作者</td><td>出版社</td><td>出版时间</td><td>价格</td><td>状态</td></tr>
+    	<table border="0" cellpadding="0" cellspacing="0" width="80%">
+    	<tr class="tTitle"><td>ISBN码</td><td>书名</td><td>作者</td><td>出版社</td><td>出版时间</td><td>价格</td><td>状态</td><td>操作</td></tr>
+        <!-- 获得所有数据 -->
+    	<%
+    		linksql db = new linksql();
+    		db.link();
+    		try{
+    			db.rs1 = db.st.executeQuery("select * from bookinfo");
+    		}catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    		while(db.rs1.next()){
+	    			out.print("<tr><td>"+db.rs1.getString(2)+"</td><td>"
+	    						+db.rs1.getString(3)+"</td><td>"
+	    						+db.rs1.getString(4)+"</td><td>"
+	    						+db.rs1.getString(5)+"</td><td>"
+	    						+db.rs1.getString(6)+"</td><td>"
+	    						+db.rs1.getString(7)+"</td><td>"
+	    						+db.rs1.getString(8)+"</td><td><a href='borrow?action=borrow&isbn="
+	    						+db.rs1.getString(2)+"'>借阅</a></td></tr>");	    			
+    		}
+    	 %>
     	<%
     		String id = request.getParameter("id");
     	if(id.equals("first")){
@@ -52,6 +85,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	}
     	 %>
     	</table>
-    </center>
   </body>
 </html>

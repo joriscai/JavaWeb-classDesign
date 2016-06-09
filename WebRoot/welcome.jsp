@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'welcome.jsp' starting page</title>
+    <title>欢迎页</title>
     
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 	<!--
@@ -19,6 +19,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <h2>欢迎登录图书管理系统</h2>
+    <h2><%
+          HttpSession session1 = request.getSession();
+          out.print(session1.getAttribute("username")+"用户");
+        %>
+             ，欢迎使用图书管理系统！</h2>
   </body>
 </html>

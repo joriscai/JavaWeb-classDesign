@@ -11,10 +11,10 @@ import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 public class linksql {
-	java.sql.Statement st = null;
-	java.sql.Connection ct = null;
+	public java.sql.Statement st = null;
+	public java.sql.Connection ct = null;
 	int rs ;
-	ResultSet rs1 ;
+	public ResultSet rs1 ;
 	java.sql.PreparedStatement ps = null;
 	public void link(){
 		if (st==null) {
