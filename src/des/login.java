@@ -18,7 +18,6 @@ public class login extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		user = request.getParameter("username");
-		System.out.println(user);
 		//数据库新建连接操作
 		linksql ls = new linksql();
 		ls.link();
@@ -40,7 +39,6 @@ public class login extends HttpServlet {
 		//判断用户密码是否一致
 		if (request.getParameter("password").equals(pwd)) {
 			session.setAttribute("username", request.getParameter("username"));
-//			response.sendRedirect("bookmanager.jsp");
 			out.print("success");
 		}else{
 			out.print("error");

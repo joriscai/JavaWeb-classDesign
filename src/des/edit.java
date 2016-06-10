@@ -15,20 +15,25 @@ public class edit extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//连接数据库
 		linksql ls = new linksql();
 		ls.link();
+		//设置响应头
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("utf-8");
+		//获得请求参数
 		String action = request.getParameter("action");
+		String isbn = request.getParameter("isbn");
+		String bookname = request.getParameter("bookname");
+		String authorname = request.getParameter("authorname");
+		String publish = request.getParameter("publish");
+		String time = request.getParameter("time");
+		String price = request.getParameter("price");
+		
 		JSONObject jsonObject = new JSONObject();
+		//添加图书
 		if(action.equals("add")){
-			String isbn = request.getParameter("isbn");
-			String bookname = request.getParameter("bookname");
-			String authorname = request.getParameter("authorname");
-			String publish = request.getParameter("publish");
-			String time = request.getParameter("time");
-			String price = request.getParameter("price");
 			try {
 				ls.rs = ls.st.executeUpdate("insert into bookinfo (ISBN,bookname,author,publish,time,price,state) values('"+isbn+"','"+bookname+"','"+authorname+"','"+publish+"','"+time+"','"+price+"','在库')");
 				jsonObject.put("result", ls.rs);
@@ -37,15 +42,9 @@ public class edit extends HttpServlet {
 				jsonObject.put("result", ls.rs);
 				jsonObject.put("msg", e.getMessage());
 			}
-			out.print(jsonObject);
 		}
+		//编辑图书
 		if(action.equals("edit")){
-			String isbn = request.getParameter("isbn");
-			String bookname = request.getParameter("bookname");
-			String authorname = request.getParameter("authorname");
-			String publish = request.getParameter("publish");
-			String time = request.getParameter("time");
-			String price = request.getParameter("price");
 			try {
 				ls.rs = ls.st.executeUpdate("update bookinfo set bookname='"+bookname
 												+"', author='"+authorname
@@ -59,10 +58,9 @@ public class edit extends HttpServlet {
 				jsonObject.put("result", ls.rs);
 				jsonObject.put("msg", e.getMessage());
 			}
-			out.print(jsonObject);
 		}
+		//删除图书
 		if(action.equals("delete")){
-			String isbn = request.getParameter("isbn");
 			try {
 				ls.rs = ls.st.executeUpdate("delete from bookinfo where isbn="+isbn+"");
 				jsonObject.put("result", ls.rs);
@@ -71,9 +69,9 @@ public class edit extends HttpServlet {
 				jsonObject.put("result", ls.rs);
 				jsonObject.put("msg", e.getMessage());
 			}
-			out.print(jsonObject);
+			
 		}
-
+		out.print(jsonObject);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

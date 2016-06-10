@@ -13,9 +13,10 @@ public class showbook extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		//设置响应头
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
+		//连接数据库
 		linksql ls = new linksql();
 		ls.link();
 		try {

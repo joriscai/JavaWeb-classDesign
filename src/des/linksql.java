@@ -16,6 +16,7 @@ public class linksql {
 	int rs;
 	public ResultSet rs1 ;
 	java.sql.PreparedStatement ps = null;
+	//连接数据库
 	public void link(){
 		if (st==null) {
 			try{	
@@ -28,6 +29,7 @@ public class linksql {
 			}
 		}
 	}
+	//关闭数据库连接
 	public void close(){
 		if(st!= null){
 			try{
