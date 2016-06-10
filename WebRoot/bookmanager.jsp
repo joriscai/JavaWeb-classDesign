@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       border: 0px;
     }
     .content{
-      /*float: left;*/
+      background: white;
     }
     /*
     
@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <nav id="nav">
       <ul>
         <li>
-          <a href='welcome.jsp' title="首页" class="active" target="bodyframe">首页</a>
+          <a href='welcome.jsp' title="首页" class="active" target="bodyframe">首&nbsp;&nbsp;&nbsp;页</a>
           <div class="pointer" style="display:block">
               <div class="arrow"></div>
               <div class="arrow_border"></div>
@@ -158,19 +158,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
         </li>
         <li>
-          <a href='showbook' title="图书信息浏览" target="bodyframe">图书信息浏览</a>
+          <a href='showbook' title="图书信息浏览" target="bodyframe">图书浏览</a>
           <div class="pointer">
               <div class="arrow"></div>
               <div class="arrow_border"></div>
           </div>
         </li>
-        <li>
+    <!--     <li>
           <a href='search.jsp?id=first' title="图书信息查询" target="bodyframe">图书信息查询</a>
           <div class="pointer">
               <div class="arrow"></div>
               <div class="arrow_border"></div>
           </div>
-        </li>
+        </li> -->
         <li>
           <a href='borrow.jsp?id=first' title="图书借阅" target="bodyframe">图书借阅</a>
           <div class="pointer">
@@ -207,7 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         clientW = $(window).width();
     $('#nav').height(clientH-50);
     $('iframe').css({
-      height:clientH,
+      height:clientH-54,
       width:clientW-220
     });
     //导航栏效果

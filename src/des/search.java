@@ -2,95 +2,73 @@ package des;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 public class search extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		//设置响应头
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("utf-8");
+		//连接数据库
 		linksql ls = new linksql();
 		ls.link();
+		//搜索字符串
 		String search = request.getParameter("search");
-		String id = request.getParameter("id");
-		char first = search.charAt(0);
 		int num = 0;
-		//System.out.println(first);
-			try {
-					if(id.equals("bookname")){
-						ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where bookname like '"+search+"%'");
-						ls.rs1.next();
-						num = ls.rs1.getInt(1);
-						if(num!=0){
-							ls.rs1 = ls.st.executeQuery("select * from bookinfo where bookname like '"+search+"%'");
-							ls.rs1.next();
-						}else{
-							ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where bookname like '%"+search+"%'");
-							ls.rs1.next();
-							num = ls.rs1.getInt(1);
-							ls.rs1 = ls.st.executeQuery("select * from bookinfo where bookname like '%"+search+"%'");
-							ls.rs1.next();
-						}
-					}else if(id.equals("author")){
-						ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where author like '"+search+"%'");
-						ls.rs1.next();
-						num = ls.rs1.getInt(1);
-						if(num!=0){
-							ls.rs1 = ls.st.executeQuery("select * from bookinfo where author like '"+search+"%'");
-							ls.rs1.next();
-						}else{
-							ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where author like '%"+search+"%'");
-							ls.rs1.next();
-							num = ls.rs1.getInt(1);
-							ls.rs1 = ls.st.executeQuery("select * from bookinfo where author like '%"+search+"%'");
-							ls.rs1.next();
-						}
-					}else if(id.equals("isbn")){
-						ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where isbn like '"+search+"%'");
-						ls.rs1.next();
-						num = ls.rs1.getInt(1);
-						if(num!=0){
-							ls.rs1 = ls.st.executeQuery("select * from bookinfo where isbn like '"+search+"%'");
-							ls.rs1.next();
-						}else{
-							ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where isbn like '%"+search+"%'");
-							ls.rs1.next();
-							num = ls.rs1.getInt(1);
-							ls.rs1 = ls.st.executeQuery("select * from bookinfo where isbn like '%"+search+"%'");
-							ls.rs1.next();
-						}
+		int result = 0;
+		JSONObject jsonObject = new JSONObject();
+		try {
+			//获得数据条数，用于判断是否为空
+			ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where (isbn like '%"+search+"%')" +
+																	" or (bookname like '%"+search+"%')" +
+																	" or (author like '%"+search+"%')");
+			ls.rs1.next();
+			result = ls.rs1.getInt(1);
+			//获取数据
+			ls.rs1 = ls.st.executeQuery("select * from bookinfo where (isbn like '%"+search+"%')" +
+																	" or (bookname like '%"+search+"%')" +
+																	" or (author like '%"+search+"%')");
+			//获取数据表元元素
+			ResultSetMetaData metaData = ls.rs1.getMetaData();
+			int len = metaData.getColumnCount();
+			//判断是否有数据
+			if (result==0) {
+				jsonObject.put("result", result);
+			}else {
+				jsonObject.put("result", result);
+				JSONObject dataTemp = new JSONObject();
+				while (ls.rs1.next()) {
+					JSONObject temp = new JSONObject();	
+					for (int i = 0; i < len; i++) {
+						temp.put(metaData.getColumnName(i+1),ls.rs1.getString(i+1));
 					}
-					String[][] info = new String[num][7];
-					for(int i=0;i<num;i++){
-						info[i][0] = ls.rs1.getString(1);
-						info[i][1] = ls.rs1.getString(2);
-						info[i][2] = ls.rs1.getString(3);
-						info[i][3] = ls.rs1.getString(4);
-						info[i][4] = ls.rs1.getString(5);
-						info[i][5] = ls.rs1.getString(6);
-						info[i][6] = ls.rs1.getString(7);
-						ls.rs1.next();
-					}
-					request.setAttribute("info", info);
-					request.setAttribute("num", num);
-					if(num!=0){
-						request.getRequestDispatcher("search.jsp").forward(request, response);
-					}else{
-						request.getRequestDispatcher("search.jsp?id=null").forward(request, response);
-					}
-			} catch (SQLException e) {
-				e.printStackTrace();
+					dataTemp.put(num, temp);
+					num++;
+				}
+				jsonObject.put("data", dataTemp);
+				
 			}
-
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//异常信息返回前台
+			jsonObject.put("result", result);
+			jsonObject.put("msg", e.getMessage());
 		}
+		out.print(jsonObject);
+	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

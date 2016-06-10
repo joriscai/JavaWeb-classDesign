@@ -16,9 +16,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link rel="stylesheet" href="css/layout.css">
         <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
         <style type="text/css" media="screen">
-            .count{
-                margin: 10px 0 0 20px;
-                float: left;
+            
+            input.search{
+                display: inline-block;
+                width: 250px;
             }
         </style>
     </head>
@@ -31,10 +32,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          %>
         <!-- 搜索框部分 -->
         <div class="search-box clearfix">
-            <div class="count">共<% out.print(rownum); %>条记录</div>
             <div class="sBtn">
-                <input type='text' name='isbn' class="search" placeholder="输入图书的ISBN号"/>
-                <button id="search" class="btn btn-info"><i class="fa fa-search"></i></button>    
+                <input type='text' name='isbn' class="search" placeholder="输入图书的ISBN号/书名等"/>
+                <button id="search" class="btn btn-success"><i class="fa fa-search"></i></button>    
             </div> 
         </div>
         <!-- 数据表格 -->
@@ -56,80 +56,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           	}
          %>
         </table>
+        <div class="count">共<span><% out.print(rownum); %></span>条记录</div>
     </body>
 </html>
 
 <script type="text/javascript">
     $(function(){
         var isbnNum = $('input[name="isbn"]');
-        //搜索按钮动画
-        $('.btn-info').click(function(){
-            isbnNum.fadeIn('slow');
-            $(this).addClass('btn-success').removeClass('btn-info').unbind('click');    
-            $('.btn-success').on('click',searchFun);
-        });
-        
-        //搜索提交
-        var searchFun = function(){
+   
+        $('#search').click(function(){
             isbnNum.removeClass('border-red');
             if (!isbnNum.val().length) {
                 isbnNum.addClass('border-red');
             }else{
                 $.ajax({
-                    url:'repay?action=search',
+                    url:'search?',
                     type:"POST",
                     data:{
-                      isbn:isbnNum.val()
+                      search:isbnNum.val()
                     },
                     success:function(msg){
-                        if(msg=='error'){
-                            alert('没有找到该ISBN码！');
+                        //json数据转为object对象
+                    	msg = JSON.parse(msg);
+                        if(msg.result==0){
+                            alert('没有找到任何数据！');
                         }else{
-                            //json数据转为object对象
-                            msg = JSON.parse(msg);
                             //判断数据是否为空
                             if (jQuery.isEmptyObject(msg)) {
                                 return false;
                             }
+                            $('.count span').text(msg.result);
                             // 清空表格
                             $('table tr:gt(0)').remove();
                             // 遍历json数据并渲染
                             var str = '<tr>';
-                            $.map(msg, function(item, index) {
-                                // console.log(item+"+++"+index)
-                                if (index>0) {
+                            $.map(msg.data, function(item, index) {
+                                var num = 0;
+                                $.map(item, function(item, index) {
+                                    if (index=='id') {
+                                        return true;
+                                    };
                                     str+='<td>'+item+'</td>';
-                                }
+                                    if (index=='ISBN') {
+                                        num = item;
+                                    }
+                                });
+                                str+='<td><a class="edit" href="edit.jsp?isbn='+num+'">编辑</a></td>'
+                                +'<td><a class="del" data-id="'+num+'">删除</a></td></tr>';
                             });
-                            str+='<td><a class="edit" href="edit.jsp?isbn="'+msg[1]+'">编辑</a></td>'
-                                +'<td><a class="del" data-id="'+msg[1]+'">删除</a></td></tr>';
+                          
                             $('.tTitle').after(str);
                         }
                     }
                 });
             }
-        }
-        // 编辑功能
-        // $('.edit').click(function(){
-        //     var isbn = $(this).attr('data-id');
-        //     if (confirm('您确认要归还该书吗？\nISBN码：'+isbn)) {
-        //          $.ajax({
-        //             url:'repay?action=repay',
-        //             type:"POST",
-        //             data:{
-        //               isbn:isbn
-        //             },
-        //             success:function(msg){
-        //                 if(msg=='0'){
-        //                     alert('归还失败，请重试！');
-        //                 }else{
-        //                     alert('归还成功！');
-        //                     location.reload();
-        //                 }
-        //             }
-        //         });
-        //     }
-        // });
+        });
+    
         // 删除功能
         $('.del').click(function(){
             var isbn = $(this).attr('data-id');

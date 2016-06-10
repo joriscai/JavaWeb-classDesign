@@ -35,6 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <tr class="tTitle"><td>ISBN码</td><td>书名</td><td>作者</td><td>出版社</td><td>出版时间</td><td>价格</td><td>状态</td><td>操作</td></tr>
         <!-- 获得所有数据 -->
         <%
+        	int count = 0;
             linksql db = new linksql();
             db.link();
             try{
@@ -43,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 e.printStackTrace();
             }
             while(db.rs1.next()){
+            		count++;
                     String str = "<tr><td>"+db.rs1.getString(2)+"</td><td>"
                                 +db.rs1.getString(3)+"</td><td>"
                                 +db.rs1.getString(4)+"</td><td>"
@@ -57,6 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
          %>
         </table>
+        <div class="count">共<span><% out.print(count); %></span>条已借出记录</div>
     </body>
 </html>
 <script type="text/javascript">
