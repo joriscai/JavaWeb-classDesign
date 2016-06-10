@@ -151,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
         </li>
         <li>
-          <a href='edit.jsp' title="添加图书" target="bodyframe">添加图书</a>
+          <a href='add.jsp' title="添加图书" target="bodyframe">添加图书</a>
           <div class="pointer">
               <div class="arrow"></div>
               <div class="arrow_border"></div>

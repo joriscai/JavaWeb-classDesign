@@ -1,6 +1,3 @@
-<%@page import="des.linksql"%>
-<%@page import="com.mysql.jdbc.*"%>
-<%@page import="java.sql.*"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
@@ -11,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
     <head>
         <base href="<%=basePath%>">
-        <title>图书信息编辑</title>
+        <title>添加图书信息</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/base.css">
@@ -25,57 +22,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
         </style>
     </head>
-  	<%
-  		String isbn = request.getParameter("isbn");
-        String bookname = null;
-        String authorname = null;
-        String publish = null;
-        String time = null;
-        String price = null;
-  		linksql db = new linksql();
-		db.link();
-		try{
-			db.rs1 = db.st.executeQuery("select * from bookinfo where isbn='"+isbn+"'");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		while(db.rs1.next()){
-            bookname = db.rs1.getString(3);
-            authorname = db.rs1.getString(4);
-            publish = db.rs1.getString(5);
-            time = db.rs1.getString(6);
-			price = db.rs1.getString(7);
-		}
-  	%>
+  
     <body>
-        <h2 class="title">图书信息编辑</h2>
+        <h2 class="title">添加图书信息</h2>
+        <!-- <form action="edit?action=edit" method='post'> -->
         <ul class="edit-list col-md-5">
             <li>
                 <label>ISBN号</label>
-                <input type='text' class="form-control" name='isbn' disabled="true" value="<%out.print(isbn); %>" />
+                <input type='text' class="form-control" name='isbn' placeholder="ISBN号"/>
             </li>
             <li>
                 <label>书名</label>
-                <input type='text' class="form-control" name='bookname' placeholder="书名" value="<%out.print(bookname); %>"/>
+                <input type='text' class="form-control" name='bookname' placeholder="书名"/>
             </li>
             <li>
                 <label>作者名</label>
-                <input type='text' class="form-control" name='authorname' placeholder="作者名" value="<%out.print(authorname); %>"/>
+                <input type='text' class="form-control" name='authorname' placeholder="作者名"/>
             </li>
             <li>
                 <label>出版单位</label>
-                <input type='text' class="form-control" name='publish' placeholder="出版单位" value="<%out.print(publish); %>"/>
+                <input type='text' class="form-control" name='publish' placeholder="出版单位"/>
             </li>
             <li>
                 <label>出版时间</label>
-                <input type='text' class="form-control" id="time" name='time' placeholder="出版时间(如：1995-02-03)" value="<%out.print(time); %>"/>
+                <input type='text' class="form-control" id="time" name='time' placeholder="出版时间(如：1995-02-03)"/>
             </li>
             <li>
                 <label>价格</label>
-                <input type='text' class="form-control" name='price' placeholder="价格" value="<%out.print(price); %>"/>
+                <input type='text' class="form-control" name='price' placeholder="价格"/>
             </li>
             <li>
-                <button class="btn btn-success">确认修改</button>
+                <button class="btn btn-success">提交</button>
             </li>
         </ul>
     </body>
@@ -116,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             emptyVar($('input[type="text"]'));
             if (!$('body').has('.border-red').length) {
                 $.ajax({
-                    url:'edit?action=edit',
+                    url:'edit?action=add',
                     type:"POST",
                     data:{
                         isbn:$('input[name="isbn"]').val(),
@@ -130,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         msg = JSON.parse(msg);
                         console.log(msg.result)
                         if (msg.result==1) {
-                            alert('修改成功！');
+                            alert('添加成功！');
                             location.href="showbook";
                         }else{
                             alert(msg.msg);

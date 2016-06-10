@@ -47,12 +47,19 @@ public class edit extends HttpServlet {
 			String time = request.getParameter("time");
 			String price = request.getParameter("price");
 			try {
-				ls.rs = ls.st.executeUpdate("insert into bookinfo (ISBN,bookname,author,publish,time,price,state) values('"+isbn+"','"+bookname+"','"+authorname+"','"+publish+"','"+time+"','"+price+"','ÔÚ¿â')");
-//				ls.rs = ls.st.executeUpdate("DELETE FROM bookinfo WHERE NOT id IN (SELECT * FROM (SELECT MAX(id) FROM bookinfo GROUP BY isbn HAVING COUNT(ISBN) >= 1) AS b)");
-//				response.sendRedirect("bookmanager.jsp");
+				ls.rs = ls.st.executeUpdate("update bookinfo set bookname='"+bookname
+												+"', author='"+authorname
+												+"', publish='"+publish
+												+"', TIME='"+time
+												+"', price='"+price
+												+"' where isbn='"+isbn+"'");
+				jsonObject.put("result", ls.rs);
 			} catch (SQLException e) {
 				e.printStackTrace();
+				jsonObject.put("result", ls.rs);
+				jsonObject.put("msg", e.getMessage());
 			}
+			out.print(jsonObject);
 		}
 		if(action.equals("delete")){
 			String isbn = request.getParameter("isbn");
