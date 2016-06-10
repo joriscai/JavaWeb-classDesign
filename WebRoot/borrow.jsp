@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		linksql db = new linksql();
     		db.link();
     		try{
-    			db.rs1 = db.st.executeQuery("select * from bookinfo");
+    			db.rs1 = db.st.executeQuery("select * from bookinfo where state='在库'");
     		}catch (Exception e) {
     			e.printStackTrace();
     		}
