@@ -207,7 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         clientW = $(window).width();
     $('#nav').height(clientH-50);
     $('iframe').css({
-      height:clientH-50,
+      height:clientH,
       width:clientW-220
     });
     //导航栏效果
