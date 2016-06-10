@@ -71,3 +71,7 @@ a:hover,a:active {
 }
 .clearfix:after{content:''; display:table; clear:both;}/*(IE8+)*/
 .clearfix{*zoom:1;} /*(IE6/IE7)*/
+
+.border-red{
+    border: 1px solid red!important; 
+}

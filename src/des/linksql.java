@@ -13,7 +13,7 @@ import com.mysql.jdbc.Statement;
 public class linksql {
 	public java.sql.Statement st = null;
 	public java.sql.Connection ct = null;
-	int rs ;
+	int rs;
 	public ResultSet rs1 ;
 	java.sql.PreparedStatement ps = null;
 	public void link(){

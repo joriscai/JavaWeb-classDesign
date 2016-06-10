@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+body{
+    padding: 30px 0px 0px 30px;
+}
+.title{
+    margin: 0 0 0 20px;
+    color: #696d73;
+    font-style: italic;
+    font-weight: 300;
+}
+.sBtn{
+    float: right;
+    padding-right:60px;
+}
+input.search {
+    box-shadow: none;
+    height: 32px;
+    font-size: 13px;
+    width: 200px;
+    padding: 2px 6px;
+    border: 1px solid #d0dde9;
+    border-radius: 2px;
+    display: none;
+}
+.search-box{
+    width: 80%;
+    padding: 15px 0;
+}
+
+table{
+   border-top:1px solid #ccc;
+   border-left:1px solid #ccc;
+   text-align: center;
+}
+tr:nth-child(odd){
+   background: #eee;
+}
+tr:hover{
+   background: #B5F9EF;
+}
+tr:first-child,.tTitle:hover{
+   background: #ddd;
+}
+td{
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 5px;
+}
+.borrow:hover{
+	cursor: pointer;
+}

@@ -9,72 +9,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+    <title>图书信息管理系统</title>
 	<link rel="stylesheet" href="css/login.css" media="all">
-  <style type="text/css" media="screen">
-    .red{
-      border: 1px solid red; 
-    }
-  </style>
-  <script src="js/jquery.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      var uname = $("input[name='username']"),
-          pwd = $("input[name='password']");
-      $('.theme-login').click(function(){
-        $('.theme-popover-mask').fadeIn(100);
-        $('.theme-popover').slideDown(200);
-      })
-      $('.theme-poptit .close').click(function(){
-        $('.theme-popover-mask').fadeOut(100);
-        $('.theme-popover').slideUp(200);
-      })
-      //监听回车键
-      pwd.keydown(function(e){
-        if (e.keyCode==13) {
-          $("input[name='submit']").trigger('click');
-        }
-      })
-      //提交事件
-      $("input[name='submit']").click(function(){
-        uname.removeClass('red');
-        pwd.removeClass('red');
-        if (!uname.val().length) {
-          uname.addClass('red');
-        }else if (!pwd.val().length) {
-          pwd.addClass('red');
-        }else{
-          $.ajax({
-            url:'login',
-            type:"POST",
-            data:{
-              username:uname.val(),
-              password:pwd.val()
-            },
-            success:function(msg){
-              if (msg=='success') {
-                //top.location.reload();
-                location.href="bookmanager.jsp";
-              }else if(msg=='error'){
-                alert('用户名或密码不正确！');
-              }else{
-                alert(msg);
-              }
-            }
-          });
-        }
-        
-      });
-    })
-  </script>
+	<link rel="stylesheet" href="css/base.css" media="all">
+
+  	<script src="js/jquery.min.js"></script>
+	<script>
+	    $(document).ready(function() {
+	      var uname = $("input[name='username']"),
+	          pwd = $("input[name='password']");
+	      $('.theme-login').click(function(){
+	        $('.theme-popover-mask').fadeIn(100);
+	        $('.theme-popover').slideDown(200);
+	      })
+	      $('.theme-poptit .close').click(function(){
+	        $('.theme-popover-mask').fadeOut(100);
+	        $('.theme-popover').slideUp(200);
+	      })
+	      //监听回车键
+	      pwd.keydown(function(e){
+	        if (e.keyCode==13) {
+	          $("input[name='submit']").trigger('click');
+	        }
+	      })
+	      //提交事件
+	      $("input[name='submit']").click(function(){
+	        uname.removeClass('border-red');
+	        pwd.removeClass('border-red');
+	        if (!uname.val().length) {
+	          uname.addClass('border-red');
+	        }else if (!pwd.val().length) {
+	          pwd.addClass('border-red');
+	        }else{
+	          $.ajax({
+	            url:'login',
+	            type:"POST",
+	            data:{
+	              username:uname.val(),
+	              password:pwd.val()
+	            },
+	            success:function(msg){
+	              if (msg=='success') {
+	                //top.location.reload();
+	                location.href="bookmanager.jsp";
+	              }else if(msg=='error'){
+	                alert('用户名或密码不正确！');
+	              }else{
+	                alert(msg);
+	              }
+	            }
+	          });
+	        }
+	        
+	      });
+	    })
+	  </script>
   </head>
   
   <body>
