@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!-- 搜索框部分 -->
         <div class="search-box clearfix">
             <div class="sBtn">
-                <input type='text' name='isbn' class="search" placeholder="输入图书的ISBN号/书名等"/>
+                <input type='text' name='isbn' class="search" placeholder="输入图书的ISBN号/书名/作者"/>
                 <button id="search" class="btn btn-success"><i class="fa fa-search"></i></button>    
             </div> 
         </div>
