@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 });
             }
         }
-        // 借阅功能
+        // 归还功能
         $('.borrow').click(function(){
             var isbn = $(this).attr('data-id');
             if (confirm('您确认要归还该书吗？\nISBN码：'+isbn)) {

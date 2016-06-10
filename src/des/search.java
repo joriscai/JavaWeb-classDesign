@@ -30,13 +30,13 @@ public class search extends HttpServlet {
 						ls.rs1.next();
 						num = ls.rs1.getInt(1);
 						if(num!=0){
-							ls.rs1 = ls.st.executeQuery("select isbn,bookname,author,publish,time,price,state from bookinfo where bookname like '"+search+"%'");
+							ls.rs1 = ls.st.executeQuery("select * from bookinfo where bookname like '"+search+"%'");
 							ls.rs1.next();
 						}else{
 							ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where bookname like '%"+search+"%'");
 							ls.rs1.next();
 							num = ls.rs1.getInt(1);
-							ls.rs1 = ls.st.executeQuery("select isbn,bookname,author,publish,time,price,state from bookinfo where bookname like '%"+search+"%'");
+							ls.rs1 = ls.st.executeQuery("select * from bookinfo where bookname like '%"+search+"%'");
 							ls.rs1.next();
 						}
 					}else if(id.equals("author")){
@@ -44,13 +44,13 @@ public class search extends HttpServlet {
 						ls.rs1.next();
 						num = ls.rs1.getInt(1);
 						if(num!=0){
-							ls.rs1 = ls.st.executeQuery("select isbn,bookname,author,publish,time,price,state from bookinfo where author like '"+search+"%'");
+							ls.rs1 = ls.st.executeQuery("select * from bookinfo where author like '"+search+"%'");
 							ls.rs1.next();
 						}else{
 							ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where author like '%"+search+"%'");
 							ls.rs1.next();
 							num = ls.rs1.getInt(1);
-							ls.rs1 = ls.st.executeQuery("select isbn,bookname,author,publish,time,price,state from bookinfo where author like '%"+search+"%'");
+							ls.rs1 = ls.st.executeQuery("select * from bookinfo where author like '%"+search+"%'");
 							ls.rs1.next();
 						}
 					}else if(id.equals("isbn")){
@@ -58,13 +58,13 @@ public class search extends HttpServlet {
 						ls.rs1.next();
 						num = ls.rs1.getInt(1);
 						if(num!=0){
-							ls.rs1 = ls.st.executeQuery("select isbn,bookname,author,publish,time,price,state from bookinfo where isbn like '"+search+"%'");
+							ls.rs1 = ls.st.executeQuery("select * from bookinfo where isbn like '"+search+"%'");
 							ls.rs1.next();
 						}else{
 							ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where isbn like '%"+search+"%'");
 							ls.rs1.next();
 							num = ls.rs1.getInt(1);
-							ls.rs1 = ls.st.executeQuery("select isbn,bookname,author,publish,time,price,state from bookinfo where isbn like '%"+search+"%'");
+							ls.rs1 = ls.st.executeQuery("select * from bookinfo where isbn like '%"+search+"%'");
 							ls.rs1.next();
 						}
 					}
@@ -87,7 +87,6 @@ public class search extends HttpServlet {
 						request.getRequestDispatcher("search.jsp?id=null").forward(request, response);
 					}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

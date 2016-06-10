@@ -19,12 +19,14 @@ public class showbook extends HttpServlet {
 		linksql ls = new linksql();
 		ls.link();
 		try {
+			//获得数据条数
 			ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo");
 			ls.rs1.next();
 			int rownum=ls.rs1.getInt(1);
-			ls.rs1 = ls.st.executeQuery("select isbn,bookname,author,publish,time,price,state from bookinfo");
+			//获得数据
+			ls.rs1 = ls.st.executeQuery("select * from bookinfo");
 			ls.rs1.next();
-			String[][] bookinfo = new String[rownum][7];
+			String[][] bookinfo = new String[rownum][8];
 			for(int i=0;i<rownum;i++){
 				bookinfo[i][0]=ls.rs1.getString(1);
 				bookinfo[i][1]=ls.rs1.getString(2);
@@ -33,13 +35,14 @@ public class showbook extends HttpServlet {
 				bookinfo[i][4]=ls.rs1.getString(5);
 				bookinfo[i][5]=ls.rs1.getString(6);
 				bookinfo[i][6]=ls.rs1.getString(7);
+				bookinfo[i][7]=ls.rs1.getString(8);
 				ls.rs1.next();
 			}
+			//返回前台
 			request.setAttribute("bookinfo", bookinfo);
 			request.setAttribute("rownum", rownum);
 			request.getRequestDispatcher("showbook.jsp").forward(request, response);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

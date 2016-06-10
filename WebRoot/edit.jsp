@@ -108,6 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         console.log(msg.result)
                         if (msg.result==1) {
                             alert('添加成功！');
+                            location.href="showbook";
                         }else{
                             alert(msg.msg);
                         }

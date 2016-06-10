@@ -58,10 +58,13 @@ public class edit extends HttpServlet {
 			String isbn = request.getParameter("isbn");
 			try {
 				ls.rs = ls.st.executeUpdate("delete from bookinfo where isbn="+isbn+"");
-//				response.sendRedirect("showbook");
+				jsonObject.put("result", ls.rs);
 			} catch (SQLException e) {
 				e.printStackTrace();
+				jsonObject.put("result", ls.rs);
+				jsonObject.put("msg", e.getMessage());
 			}
+			out.print(jsonObject);
 		}
 
 	}

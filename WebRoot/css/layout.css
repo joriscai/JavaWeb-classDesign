@@ -37,6 +37,7 @@ table{
    border-top:1px solid #ccc;
    border-left:1px solid #ccc;
    text-align: center;
+   margin-left: 20px;
 }
 tr:nth-child(odd){
    background: #eee;
@@ -52,7 +53,7 @@ td{
     border-right: 1px solid #ccc;
     padding: 5px;
 }
-.borrow:hover{
+a:hover{
 	cursor: pointer;
 }
 
