@@ -1,9 +1,9 @@
-<%@page import="des.linksql"%>
+<%@page import="des.SQLhelper"%>
 <%@page import="com.mysql.jdbc.*"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
-String path = request.getContextPath();
+	String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE HTML>
@@ -36,28 +36,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!-- 获得所有数据 -->
         <%
         	int count = 0;
-            linksql db = new linksql();
-            db.link();
-            try{
-                db.rs1 = db.st.executeQuery("select * from bookinfo where state='已借出'");
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-            while(db.rs1.next()){
-            		count++;
-                    String str = "<tr><td>"+db.rs1.getString(2)+"</td><td>"
-                                +db.rs1.getString(3)+"</td><td>"
-                                +db.rs1.getString(4)+"</td><td>"
-                                +db.rs1.getString(5)+"</td><td>"
-                                +db.rs1.getString(6)+"</td><td>"
-                                +db.rs1.getString(7)+"</td><td>"
-                                +db.rs1.getString(8)+"</td><td>";
-                    if(db.rs1.getString(8).equals("已借出")){
-                        str+="<a class='borrow' data-id='"+db.rs1.getString(2)+"'>还书</a></td></tr>";                    
-                    }
-                    out.print(str);
-            }
-         %>
+                            SQLhelper db = new SQLhelper();
+                            db.link();
+                            try{
+                                db.rs1 = db.st.executeQuery("select * from bookinfo where state='已借出'");
+                            }catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            while(db.rs1.next()){
+                            		count++;
+                                    String str = "<tr><td>"+db.rs1.getString(2)+"</td><td>"
+                                                +db.rs1.getString(3)+"</td><td>"
+                                                +db.rs1.getString(4)+"</td><td>"
+                                                +db.rs1.getString(5)+"</td><td>"
+                                                +db.rs1.getString(6)+"</td><td>"
+                                                +db.rs1.getString(7)+"</td><td>"
+                                                +db.rs1.getString(8)+"</td><td>";
+                                    if(db.rs1.getString(8).equals("已借出")){
+                                        str+="<a class='borrow' data-id='"+db.rs1.getString(2)+"'>还书</a></td></tr>";                    
+                                    }
+                                    out.print(str);
+                            }
+        %>
         </table>
         <div class="count">共<span><% out.print(count); %></span>条已借出记录</div>
     </body>

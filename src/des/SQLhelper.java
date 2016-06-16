@@ -10,7 +10,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
-public class linksql {
+public class SQLhelper {
 	public java.sql.Statement st = null;
 	public java.sql.Connection ct = null;
 	int rs;

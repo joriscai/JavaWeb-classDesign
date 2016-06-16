@@ -23,7 +23,7 @@ public class search extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("utf-8");
 		//连接数据库
-		linksql ls = new linksql();
+		SQLhelper ls = new SQLhelper();
 		ls.link();
 		//搜索字符串
 		String search = request.getParameter("search");

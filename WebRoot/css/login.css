@@ -235,9 +235,8 @@ input.btn {
 	position:fixed;
 	top:50%;
 	left:50%;
-	width:600px;
-	height:300px;
-	margin:-150px 0 0 -300px;
+	width:460px;
+	margin:-150px 0 0 -230px;
 	border-radius:5px;
 	border:solid 2px #666;
 	background-color:#fff;
@@ -291,7 +290,7 @@ input.btn {
 	margin-right:6px
 }
 .dform {
-	padding:50px 60px 40px;
+	padding: 30px 30px;
 	text-align: center;
 }
 .dform li label{

@@ -19,7 +19,7 @@ public class repay extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		//连接数据库
-		linksql ls = new linksql();
+		SQLhelper ls = new SQLhelper();
 		ls.link();
 		//获得请求参数
 		String isbn = request.getParameter("isbn");

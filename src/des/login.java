@@ -19,7 +19,7 @@ public class login extends HttpServlet {
 			throws ServletException, IOException {
 		user = request.getParameter("username");
 		//数据库新建连接操作
-		linksql ls = new linksql();
+		SQLhelper ls = new SQLhelper();
 		ls.link();
 		//设置返回
 		response.setContentType("text/html;charset=utf-8");

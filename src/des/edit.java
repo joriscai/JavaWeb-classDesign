@@ -16,7 +16,7 @@ public class edit extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//连接数据库
-		linksql ls = new linksql();
+		SQLhelper ls = new SQLhelper();
 		ls.link();
 		//设置响应头
 		response.setContentType("text/html;charset=utf-8");

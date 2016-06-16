@@ -1,9 +1,9 @@
-<%@page import="des.linksql"%>
+<%@page import="des.SQLhelper"%>
 <%@page import="com.mysql.jdbc.*"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
-String path = request.getContextPath();
+	String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
@@ -27,25 +27,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
   	<%
   		String isbn = request.getParameter("isbn");
-        String bookname = null;
-        String authorname = null;
-        String publish = null;
-        String time = null;
-        String price = null;
-  		linksql db = new linksql();
-		db.link();
-		try{
-			db.rs1 = db.st.executeQuery("select * from bookinfo where isbn='"+isbn+"'");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		while(db.rs1.next()){
-            bookname = db.rs1.getString(3);
-            authorname = db.rs1.getString(4);
-            publish = db.rs1.getString(5);
-            time = db.rs1.getString(6);
-			price = db.rs1.getString(7);
-		}
+  	  	        String bookname = null;
+  	  	        String authorname = null;
+  	  	        String publish = null;
+  	  	        String time = null;
+  	  	        String price = null;
+  	  	  		SQLhelper db = new SQLhelper();
+  	  			db.link();
+  	  			try{
+  	  		db.rs1 = db.st.executeQuery("select * from bookinfo where isbn='"+isbn+"'");
+  	  			}catch (Exception e) {
+  	  		e.printStackTrace();
+  	  			}
+  	  			while(db.rs1.next()){
+  	  	            bookname = db.rs1.getString(3);
+  	  	            authorname = db.rs1.getString(4);
+  	  	            publish = db.rs1.getString(5);
+  	  	            time = db.rs1.getString(6);
+  	  		price = db.rs1.getString(7);
+  	  			}
   	%>
     <body>
         <h2 class="title">图书信息编辑</h2>

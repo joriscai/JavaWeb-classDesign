@@ -10,6 +10,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <title>图书信息管理系统</title>
 		<link rel="stylesheet" href="css/login.css" media="all">
 		<link rel="stylesheet" href="css/base.css" media="all">
+		<script src="js/jquery.min.js"></script>
+		<script src="sweetalert/sweetalert.min.js"></script> 
+		<link rel="stylesheet" type="text/css" href="sweetalert/sweetalert.css">
+	  	<script type="text/javascript" src="http://api.youziku.com/webfont/FastJS/yzk_2A245E18A11DC95F"></script>
 		<style type="text/css" media="screen">
 			body{
 				background: url(./img/bg.jpg) no-repeat;
@@ -29,6 +33,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			opacity: 0.6;
     			background: #B5E1F3;
     			position: relative;
+			}
+			nav a {
+				font-family: "微软雅黑"!important;
 			}
 			nav ul{
 				display: flex;
@@ -102,8 +109,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				100% {background-position: 0px 0px;}
 			}
 		</style>
-	  	<script src="js/jquery.min.js"></script>
-	  	<script type="text/javascript" src="http://api.youziku.com/webfont/FastJS/yzk_2A245E18A11DC95F"></script>
 	</head>
   
   	<body>
@@ -193,11 +198,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      			},
 	      			success:function(msg){
 	      				if (msg=='success') {
-			                location.href="bookmanager.jsp";
+	      					swal({
+	      						title: "登录成功",
+	      						text: "正在跳转...",
+	      						type: "success",
+	      						showConfirmButton: false,
+	      						timer: 800
+	      					},function(){
+			            	    location.href="bookmanager.jsp";
+	      					});
 			            }else if(msg=='error'){
-			            	alert('用户名或密码不正确！');
+			            	swal(msg, "帐号或密码错误！", "error");
 			            }else{
-			            	alert(msg);
+			            	swal("error", msg, "error");
 			            }
 			        }
 			    });
