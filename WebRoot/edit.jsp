@@ -35,16 +35,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  	  		SQLhelper db = new SQLhelper();
   	  			db.link();
   	  			try{
-  	  		db.rs1 = db.st.executeQuery("select * from bookinfo where isbn='"+isbn+"'");
+  	  		db.rs = db.st.executeQuery("select * from bookinfo where isbn='"+isbn+"'");
   	  			}catch (Exception e) {
   	  		e.printStackTrace();
   	  			}
-  	  			while(db.rs1.next()){
-  	  	            bookname = db.rs1.getString(3);
-  	  	            authorname = db.rs1.getString(4);
-  	  	            publish = db.rs1.getString(5);
-  	  	            time = db.rs1.getString(6);
-  	  		price = db.rs1.getString(7);
+  	  			while(db.rs.next()){
+  	  	            bookname = db.rs.getString(3);
+  	  	            authorname = db.rs.getString(4);
+  	  	            publish = db.rs.getString(5);
+  	  	            time = db.rs.getString(6);
+  	  		price = db.rs.getString(7);
   	  			}
   	%>
     <body>

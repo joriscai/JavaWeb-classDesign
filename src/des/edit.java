@@ -35,38 +35,38 @@ public class edit extends HttpServlet {
 		//ÃÌº”Õº È
 		if(action.equals("add")){
 			try {
-				ls.rs = ls.st.executeUpdate("insert into bookinfo (ISBN,bookname,author,publish,time,price,state) values('"+isbn+"','"+bookname+"','"+authorname+"','"+publish+"','"+time+"','"+price+"','‘⁄ø‚')");
-				jsonObject.put("result", ls.rs);
+				ls.flag = ls.st.executeUpdate("insert into bookinfo (ISBN,bookname,author,publish,time,price,state) values('"+isbn+"','"+bookname+"','"+authorname+"','"+publish+"','"+time+"','"+price+"','‘⁄ø‚')");
+				jsonObject.put("result", ls.flag);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				jsonObject.put("result", ls.rs);
+				jsonObject.put("result", ls.flag);
 				jsonObject.put("msg", e.getMessage());
 			}
 		}
 		//±‡º≠Õº È
 		if(action.equals("edit")){
 			try {
-				ls.rs = ls.st.executeUpdate("update bookinfo set bookname='"+bookname
+				ls.flag = ls.st.executeUpdate("update bookinfo set bookname='"+bookname
 												+"', author='"+authorname
 												+"', publish='"+publish
 												+"', TIME='"+time
 												+"', price='"+price
 												+"' where isbn='"+isbn+"'");
-				jsonObject.put("result", ls.rs);
+				jsonObject.put("result", ls.flag);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				jsonObject.put("result", ls.rs);
+				jsonObject.put("result", ls.flag);
 				jsonObject.put("msg", e.getMessage());
 			}
 		}
 		//…æ≥˝Õº È
 		if(action.equals("delete")){
 			try {
-				ls.rs = ls.st.executeUpdate("delete from bookinfo where isbn="+isbn+"");
-				jsonObject.put("result", ls.rs);
+				ls.flag = ls.st.executeUpdate("delete from bookinfo where isbn="+isbn+"");
+				jsonObject.put("result", ls.flag);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				jsonObject.put("result", ls.rs);
+				jsonObject.put("result", ls.flag);
 				jsonObject.put("msg", e.getMessage());
 			}
 			

@@ -32,17 +32,17 @@ public class search extends HttpServlet {
 		JSONObject jsonObject = new JSONObject();
 		try {
 			//获得数据条数，用于判断是否为空
-			ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo where (isbn like '%"+search+"%')" +
+			ls.rs = ls.st.executeQuery("select count(*) from bookinfo where (isbn like '%"+search+"%')" +
 																	" or (bookname like '%"+search+"%')" +
 																	" or (author like '%"+search+"%')");
-			ls.rs1.next();
-			result = ls.rs1.getInt(1);
+			ls.rs.next();
+			result = ls.rs.getInt(1);
 			//获取数据
-			ls.rs1 = ls.st.executeQuery("select * from bookinfo where (isbn like '%"+search+"%')" +
+			ls.rs = ls.st.executeQuery("select * from bookinfo where (isbn like '%"+search+"%')" +
 																	" or (bookname like '%"+search+"%')" +
 																	" or (author like '%"+search+"%')");
 			//获取数据表元元素
-			ResultSetMetaData metaData = ls.rs1.getMetaData();
+			ResultSetMetaData metaData = ls.rs.getMetaData();
 			int len = metaData.getColumnCount();
 			//判断是否有数据
 			if (result==0) {
@@ -50,10 +50,10 @@ public class search extends HttpServlet {
 			}else {
 				jsonObject.put("result", result);
 				JSONObject dataTemp = new JSONObject();
-				while (ls.rs1.next()) {
+				while (ls.rs.next()) {
 					JSONObject temp = new JSONObject();	
 					for (int i = 0; i < len; i++) {
-						temp.put(metaData.getColumnName(i+1),ls.rs1.getString(i+1));
+						temp.put(metaData.getColumnName(i+1),ls.rs.getString(i+1));
 					}
 					dataTemp.put(num, temp);
 					num++;

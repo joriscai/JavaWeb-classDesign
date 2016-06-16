@@ -39,21 +39,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             SQLhelper db = new SQLhelper();
                             db.link();
                             try{
-                                db.rs1 = db.st.executeQuery("select * from bookinfo where state='已借出'");
+                                db.rs = db.st.executeQuery("select * from bookinfo where state='已借出'");
                             }catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            while(db.rs1.next()){
+                            while(db.rs.next()){
                             		count++;
-                                    String str = "<tr><td>"+db.rs1.getString(2)+"</td><td>"
-                                                +db.rs1.getString(3)+"</td><td>"
-                                                +db.rs1.getString(4)+"</td><td>"
-                                                +db.rs1.getString(5)+"</td><td>"
-                                                +db.rs1.getString(6)+"</td><td>"
-                                                +db.rs1.getString(7)+"</td><td>"
-                                                +db.rs1.getString(8)+"</td><td>";
-                                    if(db.rs1.getString(8).equals("已借出")){
-                                        str+="<a class='borrow' data-id='"+db.rs1.getString(2)+"'>还书</a></td></tr>";                    
+                                    String str = "<tr><td>"+db.rs.getString(2)+"</td><td>"
+                                                +db.rs.getString(3)+"</td><td>"
+                                                +db.rs.getString(4)+"</td><td>"
+                                                +db.rs.getString(5)+"</td><td>"
+                                                +db.rs.getString(6)+"</td><td>"
+                                                +db.rs.getString(7)+"</td><td>"
+                                                +db.rs.getString(8)+"</td><td>";
+                                    if(db.rs.getString(8).equals("已借出")){
+                                        str+="<a class='borrow' data-id='"+db.rs.getString(2)+"'>还书</a></td></tr>";                    
                                     }
                                     out.print(str);
                             }

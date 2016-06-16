@@ -21,23 +21,23 @@ public class showbook extends HttpServlet {
 		ls.link();
 		try {
 			//获得数据条数
-			ls.rs1 = ls.st.executeQuery("select count(*) from bookinfo");
-			ls.rs1.next();
-			int rownum=ls.rs1.getInt(1);
+			ls.rs = ls.st.executeQuery("select count(*) from bookinfo");
+			ls.rs.next();
+			int rownum=ls.rs.getInt(1);
 			//获得数据
-			ls.rs1 = ls.st.executeQuery("select * from bookinfo");
-			ls.rs1.next();
+			ls.rs = ls.st.executeQuery("select * from bookinfo");
+			ls.rs.next();
 			String[][] bookinfo = new String[rownum][8];
 			for(int i=0;i<rownum;i++){
-				bookinfo[i][0]=ls.rs1.getString(1);
-				bookinfo[i][1]=ls.rs1.getString(2);
-				bookinfo[i][2]=ls.rs1.getString(3);
-				bookinfo[i][3]=ls.rs1.getString(4);
-				bookinfo[i][4]=ls.rs1.getString(5);
-				bookinfo[i][5]=ls.rs1.getString(6);
-				bookinfo[i][6]=ls.rs1.getString(7);
-				bookinfo[i][7]=ls.rs1.getString(8);
-				ls.rs1.next();
+				bookinfo[i][0]=ls.rs.getString(1);
+				bookinfo[i][1]=ls.rs.getString(2);
+				bookinfo[i][2]=ls.rs.getString(3);
+				bookinfo[i][3]=ls.rs.getString(4);
+				bookinfo[i][4]=ls.rs.getString(5);
+				bookinfo[i][5]=ls.rs.getString(6);
+				bookinfo[i][6]=ls.rs.getString(7);
+				bookinfo[i][7]=ls.rs.getString(8);
+				ls.rs.next();
 			}
 			//返回前台
 			request.setAttribute("bookinfo", bookinfo);

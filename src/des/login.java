@@ -28,10 +28,10 @@ public class login extends HttpServlet {
 		HttpSession session = request.getSession();
 		//获得用户密码
 		try {
-			ls.rs1 = ls.st.executeQuery("select * from login where username='"
+			ls.rs = ls.st.executeQuery("select * from login where username='"
 					+user+"'");
-			if (ls.rs1.next()) {				
-				pwd = ls.rs1.getString("password");
+			if (ls.rs.next()) {				
+				pwd = ls.rs.getString("password");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

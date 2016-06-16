@@ -27,22 +27,22 @@ public class repay extends HttpServlet {
 		//归还数据操作
 		if(action.equals("repay")){
 			try {
-				ls.rs = ls.st.executeUpdate("update bookinfo set state='在库' where isbn='"+isbn+"'");
-				out.print(ls.rs);
+				ls.flag = ls.st.executeUpdate("update bookinfo set state='在库' where isbn='"+isbn+"'");
+				out.print(ls.flag);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		//搜索数据操作
 		}else if (action.equals("search")) {
 			try {
-				ls.rs1 = ls.st.executeQuery("select * from bookinfo where isbn = "+isbn+"");
-				if (!ls.rs1.next()) {
+				ls.rs = ls.st.executeQuery("select * from bookinfo where isbn = "+isbn+"");
+				if (!ls.rs.next()) {
 					out.print("error");
 					return;
 				}
 				JSONObject jsonObject = new JSONObject();
 				for(int i=0;i<8;i++){
-					jsonObject.put(i, ls.rs1.getString(i+1));
+					jsonObject.put(i, ls.rs.getString(i+1));
 				}
 				out.print(jsonObject);
 			} catch (Exception e) {
