@@ -3,7 +3,6 @@ package des;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +14,11 @@ public class edit extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		//连接数据库
 		SQLhelper ls = new SQLhelper();
 		ls.link();
@@ -47,11 +51,11 @@ public class edit extends HttpServlet {
 		if(action.equals("edit")){
 			try {
 				ls.flag = ls.st.executeUpdate("update bookinfo set bookname='"+bookname
-												+"', author='"+authorname
-												+"', publish='"+publish
-												+"', TIME='"+time
-												+"', price='"+price
-												+"' where isbn='"+isbn+"'");
+						+"', author='"+authorname
+						+"', publish='"+publish
+						+"', TIME='"+time
+						+"', price='"+price
+						+"' where isbn='"+isbn+"'");
 				jsonObject.put("result", ls.flag);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -73,12 +77,4 @@ public class edit extends HttpServlet {
 		}
 		out.print(jsonObject);
 	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		this.doGet(request, response);
-
-	}
-
 }

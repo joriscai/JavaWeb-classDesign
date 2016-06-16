@@ -3,7 +3,6 @@ package des;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,5 +54,4 @@ public class showbook extends HttpServlet {
 		this.doGet(request, response);
 
 	}
-
 }

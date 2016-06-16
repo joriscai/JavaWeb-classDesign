@@ -3,7 +3,6 @@ package des;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +16,12 @@ public class login extends HttpServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		user = request.getParameter("username");
 		//数据库新建连接操作
 		SQLhelper ls = new SQLhelper();
@@ -43,14 +48,5 @@ public class login extends HttpServlet {
 		}else{
 			out.print("error");
 		}
-
 	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		this.doGet(request, response);
-
-	}
-
 }

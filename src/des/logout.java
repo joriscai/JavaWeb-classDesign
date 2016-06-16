@@ -2,7 +2,6 @@ package des;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,14 +16,11 @@ public class logout extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		request.getSession().removeAttribute("username");
 		response.sendRedirect("index.jsp");
-
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		this.doGet(request, response);
-
 	}
-
 }

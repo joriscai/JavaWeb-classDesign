@@ -6,7 +6,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.TreeMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +17,10 @@ public class search extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+	}
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		//设置响应头
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -33,8 +36,8 @@ public class search extends HttpServlet {
 		try {
 			//获得数据条数，用于判断是否为空
 			ls.rs = ls.st.executeQuery("select count(*) from bookinfo where (isbn like '%"+search+"%')" +
-																	" or (bookname like '%"+search+"%')" +
-																	" or (author like '%"+search+"%')");
+																			" or (bookname like '%"+search+"%')" +
+																			" or (author like '%"+search+"%')");
 			ls.rs.next();
 			result = ls.rs.getInt(1);
 			//获取数据
@@ -69,11 +72,4 @@ public class search extends HttpServlet {
 		}
 		out.print(jsonObject);
 	}
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		this.doGet(request, response);
-
-	}
-
 }

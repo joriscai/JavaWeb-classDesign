@@ -3,7 +3,6 @@ package des;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +14,11 @@ public class repay extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		//设置响应头
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -32,7 +36,7 @@ public class repay extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		//搜索数据操作
+			//搜索数据操作
 		}else if (action.equals("search")) {
 			try {
 				ls.rs = ls.st.executeQuery("select * from bookinfo where isbn = "+isbn+"");
@@ -50,12 +54,4 @@ public class repay extends HttpServlet {
 			}
 		}
 	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		this.doGet(request, response);
-
-	}
-
 }
