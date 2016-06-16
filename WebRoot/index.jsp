@@ -203,7 +203,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      						text: "正在跳转...",
 	      						type: "success",
 	      						showConfirmButton: false,
-	      						timer: 800
+	      						timer: 850
 	      					},function(){
 			            	    location.href="bookmanager.jsp";
 	      					});

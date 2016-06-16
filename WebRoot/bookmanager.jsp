@@ -13,6 +13,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sweetalert/sweetalert.min.js"></script> 
+	<link rel="stylesheet" type="text/css" href="sweetalert/sweetalert.css">
     <style type="text/css" media="screen">
     a, a:visited{
       color: blue;
@@ -220,9 +222,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
     //退出确认
     $('.logout').click(function(){
-      if (confirm('您确认退出系统吗？')) {
-        top.location.href='logout';
-      }
+    	swal({   
+			title: "退出确认",   
+			text: "你确定退出系统吗？",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "确定",
+			cancelButtonText: "取消",
+			closeOnConfirm: false,
+			closeOnCancel: true 
+		}, function(isConfirm){
+			if (isConfirm) {
+				swal({
+	      			title: "退出成功",
+	      			text: "正在跳转...",
+	      			type: "success",
+	      			showConfirmButton: false,
+	      			timer: 800
+	      		},function(){
+			        location.href="logout";
+	      		});  
+			} 
+		});
     })
   })
 </script>

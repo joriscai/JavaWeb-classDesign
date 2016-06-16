@@ -15,6 +15,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/layout.css">
         <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="sweetalert/sweetalert.min.js"></script> 
+		<link rel="stylesheet" type="text/css" href="sweetalert/sweetalert.css">
         <style type="text/css" media="screen">
             .form-control{
                 display: inline-block;
@@ -88,8 +90,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 obj.addClass('border-red');
             }
         })
+
         // 提交检验
-        $('.btn').click(function(){
+        $('.btn').click(function(){      	
             emptyVar($('input[type="text"]'));
             if (!$('body').has('.border-red').length) {
                 $.ajax({
@@ -107,10 +110,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         msg = JSON.parse(msg);
                         console.log(msg.result)
                         if (msg.result==1) {
-                            alert('添加成功！');
-                            location.href="showbook";
+                        
+                            swal({
+	      						title: "添加成功",
+	      						text: "正在跳转...",
+	      						type: "success",
+	      						showConfirmButton: false,
+	      						timer: 700
+	      					},function(){
+			            	    location.href="showbook";
+	      					});
+                            
                         }else{
-                            alert(msg.msg);
+                            swal({   
+                            	title: "添加失败",   
+                            	text: "请重试一次...",   
+                            	type: "error"
+                            });
                         }
                     }
                 })
