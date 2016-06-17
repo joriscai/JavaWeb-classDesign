@@ -30,24 +30,6 @@ public class SQLhelper {
 		}
 	}
 	//关闭数据库连接
-	public void close(){
-		if(st!= null){
-			try{
-				st.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-			st=null;
-		}
-		if(ct !=null){
-			try{
-				ct.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-			ct=null;
-		}
-	}
 }
 		
 
