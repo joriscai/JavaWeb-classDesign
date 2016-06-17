@@ -17,6 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="sweetalert/sweetalert.min.js"></script> 
 		<link rel="stylesheet" type="text/css" href="sweetalert/sweetalert.css">
+		<script src="laydate/laydate.js"></script> 
         <style type="text/css" media="screen">
             .form-control{
                 display: inline-block;
@@ -47,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </li>
             <li>
                 <label>出版时间</label>
-                <input type='text' class="form-control" id="time" name='time' placeholder="出版时间(如：1995-02-03)"/>
+                <input type='text' class="form-control laydate-icon" id="time" name='time' placeholder="出版时间(如：1995-02-03)"/>
             </li>
             <li>
                 <label>价格</label>
@@ -61,6 +62,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </html>
 <script type="text/javascript">
     $(function(){
+    	var start = {
+			elem: '#time',
+			format: 'YYYY-MM-DD',
+			istoday: true
+		};
+		laydate(start);
+		laydate.skin('danlan'); /*时间控件风格*/
         // 日期检验（未完善）
         function checkDate(d){
             var ds=d.match(/\d+/g);
