@@ -17,6 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/layout.css">
         <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="sweetalert/sweetalert.min.js"></script> 
+		<link rel="stylesheet" type="text/css" href="sweetalert/sweetalert.css">
     </head>
   
     <body>
@@ -86,7 +88,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     },
                     success:function(msg){
                         if(msg=='error'){
-                            alert('没有找到该ISBN码！');
+                        	swal({   
+                            	title: "搜索错误",   
+                            	text: "没有找到该ISBN码！",   
+                            	type: "error"
+                            });
                         }else{
                             //json数据转为object对象
                             msg = JSON.parse(msg);
@@ -117,23 +123,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         // 归还功能
         $('.borrow').click(function(){
             var isbn = $(this).attr('data-id');
-            if (confirm('您确认要归还该书吗？\nISBN码：'+isbn)) {
-                 $.ajax({
-                    url:'repay?action=repay',
-                    type:"POST",
-                    data:{
-                      isbn:isbn
-                    },
-                    success:function(msg){
-                        if(msg=='0'){
-                            alert('归还失败，请重试！');
-                        }else{
-                            alert('归还成功！');
-                            location.reload();
-                        }
-                    }
-                });
-            }
+            swal({   
+				title: "您确认要归还该书吗？",   
+				text: "ISBN码："+isbn,
+				type: "info",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "确定",
+				cancelButtonText: "取消",
+				closeOnConfirm: false,
+				closeOnCancel: true 
+			}, function(isConfirm){
+				if (isConfirm) {
+	                 $.ajax({
+	                    url:'repay?action=repay',
+	                    type:"POST",
+	                    data:{
+	                      isbn:isbn
+	                    },
+	                    success:function(msg){
+	                        if(msg=='0'){
+	                        	swal("归还失败",  "请重试或联系系统管理员...", "error");
+	                        }else{
+	                        	swal({
+		      						title: "归还成功！",
+		      						text: "正在刷新...",
+		      						type: "success",
+		      						showConfirmButton: false,
+		      						timer: 800
+		      					},function(){
+				            	    location.reload();
+		      					});
+	                            
+	                        }
+	                    }
+	                });
+	             }
+            });
 
         });
     })

@@ -18,6 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/layout.css">
         <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="sweetalert/sweetalert.min.js"></script> 
+		<link rel="stylesheet" type="text/css" href="sweetalert/sweetalert.css">
         <script src="laydate/laydate.js"></script> 
         <style type="text/css" media="screen">
             .form-control{
@@ -106,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 $(this).val().length ? $(this).removeClass('border-red') : $(this).addClass('border-red') ;
             });
       	}
-        $('input').on('blur',function(){
+        $('.edit-list input').on('blur',function(){
             emptyVar($(this));
         })
         // 日期输入框失焦检验
@@ -122,7 +124,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         // 提交检验
         $('.btn').click(function(){
             emptyVar($('input[type="text"]'));
-            if (!$('body').has('.border-red').length) {
+            var flag = $('.edit-list').has('.border-red').length;
+            if (!flag) {
                 $.ajax({
                     url:'edit?action=edit',
                     type:"POST",
@@ -138,10 +141,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         msg = JSON.parse(msg);
                         console.log(msg.result)
                         if (msg.result==1) {
-                            alert('修改成功！');
-                            location.href="showbook";
+                        	swal({
+	      						title: "修改成功",
+	      						text: "正在跳转...",
+	      						type: "success",
+	      						showConfirmButton: false,
+	      						timer: 700
+	      					},function(){
+			            	    location.href="showbook";
+	      					});
                         }else{
-                            alert(msg.msg);
+                            swal({   
+                            	title: "修改失败",   
+                            	text: msg.msg,   
+                            	type: "error"
+                            });
                         }
                     }
                 })

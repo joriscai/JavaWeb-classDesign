@@ -15,6 +15,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/layout.css">
         <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="sweetalert/sweetalert.min.js"></script> 
+		<link rel="stylesheet" type="text/css" href="sweetalert/sweetalert.css">
         <style type="text/css" media="screen">
             
             input.search{
@@ -79,7 +81,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         //json数据转为object对象
                     	msg = JSON.parse(msg);
                         if(msg.result==0){
-                            alert('没有找到任何数据！');
+                        	swal({   
+                            	title: "搜索错误",   
+                            	text: "没有找到相关数据的图书！",   
+                            	type: "error"
+                            });
                         }else{
                             //判断数据是否为空
                             if (jQuery.isEmptyObject(msg)) {
@@ -115,25 +121,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         // 删除功能
         $('.del').click(function(){
             var isbn = $(this).attr('data-id');
-            if (confirm('您确认要删除该图书吗？\nISBN码：'+isbn)) {
-                 $.ajax({
-                    url:'edit?action=delete',
-                    type:"POST",
-                    data:{
-                      isbn:isbn
-                    },
-                    success:function(msg){
-                        msg = JSON.parse(msg);
-                        console.log(msg.result)
-                        if (msg.result==1) {
-                            alert('删除成功！');
-                            location.reload();
-                        }else{
-                            alert(msg.msg);
-                        }
-                    }
-                });
-            }
+            swal({   
+				title: "您确认要删除该图书吗？",   
+				text: "ISBN码："+isbn,
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "确定",
+				cancelButtonText: "取消",
+				closeOnConfirm: false
+			}, function(isConfirm){
+				if (isConfirm) {
+	                 $.ajax({
+	                    url:'edit?action=delete',
+	                    type:"POST",
+	                    data:{
+	                      isbn:isbn
+	                    },
+	                    success:function(msg){
+	                        msg = JSON.parse(msg);
+	                        console.log(msg.result)
+	                        if (msg.result==1) {
+	                        	swal({
+		      						title: "删除成功！",
+		      						text: "正在刷新...",
+		      						type: "success",
+		      						timer: 800
+		      					},function(){
+				            	    location.reload();
+		      					});
+	                        }else{
+	                        	swal("删除失败！",msg.msg,"error");
+	                            
+	                        }
+	                    }
+	                });
+	             }
+            });
+           
         });
     })
 </script>

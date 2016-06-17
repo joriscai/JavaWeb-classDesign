@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 $(this).val().length ? $(this).removeClass('border-red') : $(this).addClass('border-red') ;
             });
       	}
-        $('input').on('blur',function(){
+        $('.edit-list input').on('blur',function(){
             emptyVar($(this));
         })
         // 日期输入框失焦检验
@@ -101,8 +101,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         // 提交检验
         $('.btn').click(function(){      	
-            emptyVar($('input[type="text"]'));
-            if (!$('body').has('.border-red').length) {
+            emptyVar($('.edit-list input[type="text"]'));
+           	var flag = $('.edit-list').has('.border-red').length;
+            if (!flag) {
                 $.ajax({
                     url:'edit?action=add',
                     type:"POST",
@@ -130,14 +131,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      					});
                             
                         }else{
-                            swal({   
-                            	title: "添加失败",   
-                            	text: "请重试一次...",   
-                            	type: "error"
-                            });
+                            swal("添加失败", msg.msg, "error");
                         }
                     }
-                })
+                });
             }
         });
     });

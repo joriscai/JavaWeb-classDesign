@@ -174,14 +174,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
         </li> -->
         <li>
-          <a href='borrow.jsp?id=first' title="图书借阅" target="bodyframe">图书借阅</a>
+          <a href='borrow.jsp' title="图书借阅" target="bodyframe">图书借阅</a>
           <div class="pointer">
               <div class="arrow"></div>
               <div class="arrow_border"></div>
           </div>
         </li>
         <li>
-          <a href='repay.jsp?id=first' title="图书归还" target="bodyframe">图书归还</a>
+          <a href='repay.jsp' title="图书归还" target="bodyframe">图书归还</a>
           <div class="pointer">
               <div class="arrow"></div>
               <div class="arrow_border"></div>
